@@ -57,6 +57,41 @@ def get_data(DATA_NAME):
         print("Shape of Test data: ", X_TEST_NORM.shape) 
         
         return X_TRAIN_NORM, Y_TRAIN, X_TEST_NORM, Y_TEST
+
+    elif DATA_NAME == "star":
+        folder_path = "Data/" + DATA_NAME + "/"
+
+        # Load Train data
+        X_train = np.array(pd.read_csv(folder_path + "X_train.csv", header=None))
+        # Load Train label
+        trainlabel = np.array(pd.read_csv(folder_path + "y_train.csv", header=None))
+        # Load Test data
+        X_test = np.array(pd.read_csv(folder_path + "X_test.csv", header=None))
+        # Load Test label
+        testlabel = np.array(pd.read_csv(folder_path + "y_test.csv", header=None))
+
+        ## Data_normalization - A Compulsory step
+        # Normalization is done along each column
+
+        X_train_norm = (X_train - np.min(X_train, 0)) / (np.max(X_train, 0) - np.min(X_train, 0))
+        X_test_norm = (X_test - np.min(X_test, 0)) / (np.max(X_test, 0) - np.min(X_test, 0))
+
+        try:
+            assert np.min(X_train_norm) >= 0.0 and np.max(X_train_norm <= 1.0)
+        except AssertionError:
+            logging.error(
+                "Train Data is NOT normalized. Hint: Go to get_data() function and normalize the data to lie in the range [0, 1]",
+                exc_info=True)
+
+        try:
+            assert np.min(X_test_norm) >= 0.0 and np.max(X_test_norm <= 1.0)
+        except AssertionError:
+            logging.error(
+                "Test Data is NOT normalized. Hint: Go to get_data() function and normalize the data to lie in the range [0, 1]",
+                exc_info=True)
+
+        return X_train_norm, trainlabel, X_test_norm, testlabel
+
     elif DATA_NAME == "concentric_circle":
         folder_path = "Data/" + DATA_NAME + "/" 
           
@@ -86,7 +121,6 @@ def get_data(DATA_NAME):
             logging.error("Test Data is NOT normalized. Hint: Go to get_data() function and normalize the data to lie in the range [0, 1]", exc_info=True)
          
         return X_train_norm, trainlabel, X_test_norm, testlabel
-
 
     elif DATA_NAME == "concentric_circle_noise":
         folder_path = "Data/" + DATA_NAME + "/" 

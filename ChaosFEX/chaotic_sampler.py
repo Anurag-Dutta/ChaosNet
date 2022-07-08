@@ -42,8 +42,7 @@ def _skewtent_onestep(value, threshold):
     """
     if value < threshold:
         return value / threshold
-    return (1 - value) / (1 - threshold)
-
+    return (1 - value)/(1 - threshold)
 
 # Multiple iterations along skew-tent map
 @njit
