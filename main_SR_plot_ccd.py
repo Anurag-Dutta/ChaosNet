@@ -11,6 +11,7 @@ FOLD_NO = 5
 INITIAL_NEURAL_ACTIVITY = [0.23]
 DISCRIMINATION_THRESHOLD = [0.97]
 EPSILON = np.arange(0.001, 1.001, 0.001)
+
 FSCORE, Q, B, EPS, EPSILON = k_cross_validation(FOLD_NO, traindata, trainlabel, testdata, testlabel,
                                                 INITIAL_NEURAL_ACTIVITY, DISCRIMINATION_THRESHOLD, EPSILON, DATA_NAME)
 
